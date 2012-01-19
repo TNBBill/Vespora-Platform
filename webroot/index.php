@@ -38,25 +38,25 @@ $router = new Router();
 
 $router->post('/admin(/:controller(/:function(/:*args)))',
     array('controller' => 'home','function' => 'index'),
-    array('controller' => '\tnb\controllers\admin\%{controller|capfirst}Controller',
+    array('controller' => '\vespora\controllers\admin\%{controller|capfirst}Controller',
         'function' => '%{function|lower}_post'));
 
 $router->request('/admin(/:controller(/:function(/:*args)))',
     array('controller' => 'home','function' => 'index' ),
-    array('controller' => '\tnb\controllers\admin\%{controller|capfirst}Controller'));
+    array('controller' => '\vespora\controllers\admin\%{controller|capfirst}Controller'));
 
 
 $router->post('/(:controller(/:function(/:*args)))',
     array('controller' => 'home','function' => 'index'),
-    array('controller' => '\tnb\controllers\main\%{controller|capfirst}Controller',
+    array('controller' => '\vespora\controllers\main\%{controller|capfirst}Controller',
         'function' => '%{function|lower}_post'));
 
 $router->request('/(:controller(/:function(/:*args)))',
     array('controller' => 'home','function' => 'index' ),
-    array('controller' => '\tnb\controllers\main\%{controller|capfirst}Controller'));
+    array('controller' => '\vespora\controllers\main\%{controller|capfirst}Controller'));
 
 $router->catchAll(array('controller'=> 'Error', 'function'=> 'error404' ),
-    array('controller' => '\tnb\controllers\main\%{controller|capfirst}Controller'));
+    array('controller' => '\vespora\controllers\main\%{controller|capfirst}Controller'));
 
 //Prepare and dispatch
 $router->start($url);
@@ -64,10 +64,10 @@ Log::info("url sent to router: $url");
 
 
 //Load the CS and JS arrays based on enviornment
-if (Config::getVal('TNB','mode') > 0){
+if (Config::getVal('Vespora','mode') > 0){
     // QA / PROD - should be using cat/mined files. 
-    View::setVar('css', array(Config::getVal('TNB','CDN_Server') . 'css/style.css'));
-    View::setVar('js', array(Config::getVal('TNB','CDN_Server') . 'js/script.js'));
+    View::setVar('css', array(Config::getVal('Vespora','CDN_Server') . 'css/style.css'));
+    View::setVar('js', array(Config::getVal('Vespora','CDN_Server') . 'js/script.js'));
 }
 else{
     // DEV - searching though the folder for use. 

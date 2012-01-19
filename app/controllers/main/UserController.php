@@ -18,7 +18,7 @@ class UserController extends BaseController {
      */
     public function index(){
         //if ($this->session->isLoggedIn())
-            return $this->profile();
+            //return $this->profile();
         return $this->login();
 
     }
@@ -31,7 +31,7 @@ class UserController extends BaseController {
     public function login(){
         //if ($this->session->isLoggedIn())
         //    return $this->redirect('/user/profile');
-        $layout = 'user/login';
+        $GLOBALS['layout'] = 'user/login';
         return null;
     }
 
@@ -49,7 +49,7 @@ class UserController extends BaseController {
                 $user = $userModel->getUserByName ( $_POST ['username'] );
                 $this->createSession( $user->id );
                 View::setVar ( 'flashMessage', 'User Login Passed' );
-                $layout = 'home/index';
+                $GLOBALS['layout'] = 'home/index';
                 //if ($this->session->isAdmin())
                 //    return $this->redirect('/admin');
                 return null;
@@ -65,7 +65,7 @@ class UserController extends BaseController {
      */
     public function profile(){
         //if ($this->session->isLoggedIn()){
-            $layout = 'user/profile';
+        $GLOBALS['layout'] = 'user/profile';
             return null;
         //}
         $this->redirect('/user/login');

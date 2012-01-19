@@ -18,8 +18,7 @@ class HomeController extends BaseController{
      * to display to the user.
      */
     public function index() {
-        tnbView::$layout = "home/index";
-        View::setVar ( 'analtyicsKey', Config::getVal("TNB", "analytics_code"));
+        $GLOBALS['layout'] = "home/index";
     }
 }
 
