@@ -1,5 +1,5 @@
 .idea*
-/.cache
+/.cache/hydrogen
 /config/config.ini.php
 /webroot/css/
 /webroot/img/
@@ -7,4 +7,4 @@
 /webroot/css/*
 /webroot/img/*
 /webroot/js/*
-/log/*
+/.log/hydro_*

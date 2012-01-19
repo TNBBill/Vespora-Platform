@@ -1,0 +1,56 @@
+<?php $ini = <<<'EOF'
+;*************************************************************************
+; Hydrogen Configuration
+;*************************************************************************
+
+[general]
+app_url = "http://localhost/"
+
+[cache]
+engine = "Memcached"
+pool_name = "Vespora"
+
+[database]
+engine = "MysqlPDO"
+host = "127.0.0.1"
+port = 3306
+socket = 
+database = ""
+username = ""
+password = ""
+table_prefix = "vespora_"
+
+[recache]
+unique_name = 'Vespora'
+
+[semaphore]
+engine = "No"
+
+[errorhandler]
+log_errors = 1
+
+[log]
+engine = TextFile
+logdir = .log
+fileprefix = "hydro_"
+; 0 = No logging
+; 1 = Log Errors
+; 2 = Log Warnings & worse
+; 3 = Log Notices & worse
+; 4 = Log Info & worse
+; 5 = Log Debug messages & worse
+loglevel = 5
+
+[TNB]
+mode = 0
+; 0 = DEV
+; 1 = QA
+; 2 = PROD
+CDN_Server = "/"
+sitename = "There's No Box Test Site"
+sessionDuration = 1
+analytics_code = 12345
+
+;*************************************************************************
+EOF;
+?>
