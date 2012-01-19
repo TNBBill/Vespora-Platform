@@ -1,0 +1,10 @@
+.idea*
+/.cache
+/config/config.ini.php
+/webroot/css/
+/webroot/img/
+/webroot/js/
+/webroot/css/*
+/webroot/img/*
+/webroot/js/*
+/log/*
