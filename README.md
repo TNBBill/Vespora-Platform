@@ -6,3 +6,8 @@ Vespora Platform aspires to be a platform for helping to connect players of role
 
 In order of importance ... the Vespora Platform will focus on these key aspects of experiance.
 
+##Requirements
+
+* PHP 5.3+ (preferably with APC and memcached)
+* Apache2 (with mods rewrite and headers)
+
