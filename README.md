@@ -6,6 +6,14 @@ Vespora Platform aspires to be a platform for helping to connect players of role
 
 In order of importance ... the Vespora Platform will focus on these key aspects of experiance.
 
+Module List (WIP)
+
+* CharacterSheet - the ability to create / maintain a character sheet
+* Campaign - the ability to track a set of resources, tied to a single campaign.
+* Type - The ability to have different 'types' of games.
+* Google - Google+ Integreation (mostly for Hangouts!)
+* Battlemap - ?
+
 ##Requirements
 
 * PHP 5.3+ (preferably with APC and memcached)
