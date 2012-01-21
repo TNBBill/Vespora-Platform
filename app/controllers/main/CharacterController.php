@@ -8,6 +8,7 @@ use vespora\helpers\viewHelper;
 use vespora\models\CharacterModel;
 use vespora\models\CampaignModel;
 use vespora\helpers\sessionHelper;
+use vespora\models\sqlBeans\CharacterBean;
 
 class CharacterController extends BaseController
 {
@@ -53,6 +54,17 @@ class CharacterController extends BaseController
         View::setVar('campaigns', $campaigns);
         viewHelper::$layout = 'character/add';
         return null;
+    }
+
+    public function add_post(){
+        if(!sessionHelper::loggedIn())
+            return $this->redirect('/user/login&return=/character/add');
+        $character = new CharacterBean;
+        $character->name = $_POST['name'];
+        $character->campaign_id = $_POST['campaign'];
+        $character->user_id = sessionHelper::$user->id;
+        $character->insert();
+        return $this->redirect('/character');
     }
 
 }

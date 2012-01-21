@@ -2,12 +2,13 @@
 
 {% block content %}
 
-    <form action='/characters/add' method='post'>
+    <form action='/character/add' method='post'>
         <label>Name: <input type='text' name='name' /></label>
-        <label>Campaign: <select>
+        <label>Campaign: <select name='campaign'>
             {% for campaign in campaigns %}
-                <option>{{campaign.name}}</option>
+                <option value='{{campaign.id}}'>{{campaign.name}}</option>
             {% endfor %}
         </select></label>
+        <input type='submit' />
     </form>
 {% endblock %}
