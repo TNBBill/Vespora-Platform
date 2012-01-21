@@ -4,6 +4,7 @@ namespace vespora\controllers\admin;
 use vespora\controllers\admin\BaseController;
 use hydrogen\view\View;
 use hydrogen\config\Config;
+use vespora\helpers\viewHelper;
 
 
 /**
@@ -18,7 +19,7 @@ class HomeController extends BaseController{
      * to display to the user.
      */
     public function index() {
-        $GLOBALS['layout'] = "home/index";
+        viewHelper::$layout = "home/index";
     }
 }
 
