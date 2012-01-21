@@ -55,7 +55,7 @@ class UserController extends BaseController {
                 $this->createSession( $user->id );
                 View::setVar ( 'flashMessage', 'User Login Passed' );
                 viewHelper::$layout = 'home/index';
-                if($_POST['return'])
+                if($_GET['return'])
                     return $this->redirect($_POST['return']);
                 return null;
             }
