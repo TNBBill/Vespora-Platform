@@ -5,19 +5,3 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ index.php?url=/$1 [QSA,L]
 </IfModule>
-# cache images/pdf docs for 10 days
-<FilesMatch "\.(ico|pdf|jpg|jpeg|png|gif)$">
-  Header unset Pragma
-  FileETag None
-  Header unset ETag
-  Header set Cache-Control "max-age=864000, public, must-revalidate"
-  Header unset Last-Modified
-</FilesMatch>
- 
-# cache html/htm/xml/txt diles for 2 days
-<FilesMatch "\.(html|htm|xml|txt|xsl)$">
-  Header unset Pragma
-  FileETag None
-  Header unset ETag
-  Header set Cache-Control "max-age=7200, must-revalidate"
-</FilesMatch>
