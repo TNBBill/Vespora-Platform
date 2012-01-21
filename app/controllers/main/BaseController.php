@@ -8,6 +8,7 @@ use hydrogen\view\View;
 use hydrogen\config\Config;
 
 use vespora\models\UserModel;
+use vespora\helpers\viewHelper;
 
 
 class BaseController extends Controller {
@@ -15,8 +16,7 @@ class BaseController extends Controller {
     function __construct(){
         parent::__construct();
 
-        $theme = 'main';
-        Log::info("Theme set to: " .$theme);
+        viewHelper::$theme = 'main';
     }
 
 

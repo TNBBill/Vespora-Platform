@@ -8,6 +8,8 @@ use hydrogen\controller\Controller;
 use hydrogen\view\View;
 use hydrogen\config\Config;
 use vespora\models\UserModel;
+use vespora\helpers\viewHelper;
+use vespora\helpers\sessionHelper;
 
 
 /**
@@ -25,10 +27,17 @@ class BaseController extends Controller {
         parent::__construct();
 
         //TODO: sanity admin check here!
+        if(sessionHelper::isAdmin()){
+            viewHelper::$theme = 'admin';
+            return;
+        }
 
-        $theme = 'admin';
-        Log::info("Theme set to: " . $theme);
-        return null;
+        if(!sessionHelper::loggedIn()){
+            $this->redirect('/user/login');
+            return;
+        }
+        $this->redirect('/error/error403');
+
     }
 
 }
