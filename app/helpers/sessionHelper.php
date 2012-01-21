@@ -2,6 +2,7 @@
 namespace vespora\helpers;
 
 use vespora\models\SessionModel;
+use vespora\models\UserModel;
 
 class sessionHelper{
     private static $started = false;
@@ -26,7 +27,7 @@ class sessionHelper{
      * @return bool True if a user is logged in, false otherwise.
      */
     public static function loggedIn(){
-        return true;
+        return self::$user->id > 1;
     }
 
     public static function start(){
