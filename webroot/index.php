@@ -14,22 +14,18 @@ use hydrogen\autoloader\Autoloader;
 use hydrogen\controller\Router;
 
 use vespora\helpers\stringHelper;
+use vespora\helpers\viewHelper;
+use vespora\helpers\sessionHelper;
 
 //Step 1: Configure the Hydrogen autoloader to use TNB namespace
 Autoloader::registerNamespace("vespora", __DIR__ . '/../app');
-
+sessionHelper::start();
 
 //Step 2: Grab the URL
 $url = '/';
 if(isset($_GET['url']))
     $url= $_GET['url'];
 Log::info("url requested: $url");
-
-
-
-//Step 3: Setting up view variables that are added to by controllers.
-$layout = 'home/index';
-$theme = 'main';
 
 
 
@@ -97,6 +93,6 @@ else{
 
 
 //run the view engine!
-Log::info("View engine loaded: $layout");
-View::load($theme . '/' . $layout);
+Log::info("View engine loaded. Layout -  " . viewHelper::$layout . ' Theme - ' . viewHelper::$theme);
+View::load(viewHelper::getView());
 ?>
