@@ -33,7 +33,7 @@ class BaseController extends Controller {
         }
 
         if(!sessionHelper::loggedIn()){
-            $this->redirect('/user/login');
+            $this->redirect('/user/login&return/admin');
             return;
         }
         $this->redirect('/error/error403');
