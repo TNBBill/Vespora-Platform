@@ -18,7 +18,7 @@ class TypeModel extends Model
         return $type[0];
     }
 
-    public function getCampaignList(){
+    public function getTypeList(){
         $query = new Query ( "SELECT" );
 
         $type = TypeBean::select ( $query );
