@@ -14,6 +14,11 @@
             Flash: {{flashMessage }}
         {% endif %}
     {% endblock %}
+    <br />
+    {% block menu %}
+        <a href='/admin/type'>Type</a>
+
+    {% endblock %}
     {% block content %}{% endblock %}
     </body>
 </html>
