@@ -3,6 +3,7 @@ namespace vespora\models\sqlBeans;
 
 use hydrogen\sqlbeans\SQLBean;
 use vespora\models\CampaignModel;
+use vespora\models\TypeModel;
 
 /**
  * User: bill
@@ -19,7 +20,7 @@ class CharacterBean extends SQLBean
     /**
      * An array of every field in the table.
      */
-    protected static $fields = array('id', 'name', 'campaign_id', 'user_id');
+    protected static $fields = array('id', 'name', 'campaign_id', 'user_id', 'type_id');
 
     /**
      * Gets the campaign bean assossiated with the current character bean.
@@ -28,6 +29,15 @@ class CharacterBean extends SQLBean
     public function getCampaign(){
         $campaignModel = CampaignModel::getInstance();
         return $campaignModel->getCampaign($this->campaign_id);
+    }
+
+    /**
+     * Gets the TypeBean for the current character
+     * @return mixed - TypeBean
+     */
+    public function getType(){
+        $typeModel = TypeModel::getInstance();
+        return $typeModel->getType($this->type_id);
     }
 
     /**
@@ -42,7 +52,7 @@ class CharacterBean extends SQLBean
 
         $beanData = $this->stored;
         $beanData['campaign'] = $this->getCampaign();
-
+        $beanData['type'] = $this->getType();
         return $beanData;
     }
 }
