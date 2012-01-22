@@ -13,14 +13,22 @@ use vespora\models\sqlBeans\CharacterBean;
 class CharacterController extends BaseController
 {
     /**
+     * Constructor for CharacterController enforces the rule that users must be logged in to access the characters
+     * section.
+     */
+    function __construct(){
+        parent::__construct();
+
+        if(!sessionHelper::loggedIn())
+            $this->redirect('/user/login&return=/character');
+    }
+
+    /**
      * Generates a list of characters created by the current user, or redirects a guest to the login page.
      * @return null|void
      */
     public function index()
     {
-        if(!sessionHelper::loggedIn())
-            return $this->redirect('/user/login&return=/character');
-
         $characterModel = CharacterModel::getInstance();
         $charBeans = $characterModel->getCharacterList(sessionHelper::$user->id);
         $characters= array();
@@ -43,8 +51,6 @@ class CharacterController extends BaseController
      * @return null|void
      */
     public function add(){
-        if(!sessionHelper::loggedIn())
-            return $this->redirect('/user/login&return=/character/add');
         $campaignModel = CampaignModel::getInstance();
         $campaignList = $campaignModel->getCampaignList();
         $campaigns = array();
@@ -56,15 +62,37 @@ class CharacterController extends BaseController
         return null;
     }
 
+    /**
+     * Handles the post portion of the add page. Inserts a new record into the database
+     */
     public function add_post(){
-        if(!sessionHelper::loggedIn())
-            return $this->redirect('/user/login&return=/character/add');
+        $campaignModel = CampaignModel::getInstance();
+        $characterModel = CharacterModel::getInstance();
+
+        $campaign = $campaignModel->getCampaign($_POST['campaign']);
         $character = new CharacterBean;
         $character->name = $_POST['name'];
         $character->campaign_id = $_POST['campaign'];
         $character->user_id = sessionHelper::$user->id;
+        $character->type_id = $campaign->type_id;
         $character->insert();
-        return $this->redirect('/character');
+
+        $id = $characterModel->getLastId();
+
+        return $this->redirect('/character/edit/' . $id);
+    }
+
+    public function edit($id){
+        $characterModel = CharacterModel::getInstance();
+        $charBean = $characterModel->getCharacter($id);
+
+        if(sessionHelper::$user->id != $charBean->user_id)
+            $this->show('/error/error403');
+
+
+        View::setVar('character', $charBean->toArray(true));
+        viewHelper::$layout = 'character/edit';
+
     }
 
 }
