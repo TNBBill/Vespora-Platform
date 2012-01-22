@@ -17,7 +17,7 @@ class sessionHelper{
      * @return bool True if the current logged in user is an admin.
      */
     public static function isAdmin(){
-        return true;
+        return self::$userPermission->admin;
     }
 
     /**
