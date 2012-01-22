@@ -19,6 +19,10 @@ class BaseController extends Controller {
         viewHelper::$theme = 'main';
     }
 
+    protected function show($url){
+        $GLOBALS['router']->start($url);
+    }
+
 
 
 }
