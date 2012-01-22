@@ -6,6 +6,7 @@
             <tr>
                 <th>Name</th>
                 <th>Campaign</th>
+                <th>Campaign Type</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -15,7 +16,8 @@
             <tr>
                 <td>{{char.name}}</td>
                 <td>{{char.campaign.name}}</td>
-                <td>Edit Link</td>
+                <td>{{char.type.name}}</td>
+                <td><a href='/character/edit/{{char.id}}'>Edit</a></td>
                 <td>Delete Link</td>
             </tr>
         {% empty %}
