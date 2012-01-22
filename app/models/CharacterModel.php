@@ -2,7 +2,10 @@
 namespace vespora\models;
 use hydrogen\model\Model;
 use hydrogen\database\Query;
+use hydrogen\database\DatabaseEngine;
+use hydrogen\database\DatabaseEngineFactory;
 use vespora\models\sqlBeans\CharacterBean;
+
 
 class CharacterModel extends Model
 {
@@ -27,6 +30,14 @@ class CharacterModel extends Model
             return false;
         }
         return $character;
+    }
+
+    public function getLastId(){
+        $db = DatabaseEngineFactory::getEngine();
+        $stmt = $db->prepare("SELECT MAX(id) as id FROM `vespora_" . self::$modelID . "`");
+        $stmt->execute();
+        $result = $stmt->fetchObject();
+        return $result->id;
     }
 }   
 ?>
