@@ -8,7 +8,7 @@ In order of importance ... the Vespora Platform will focus on these key aspects 
 
 Module List (WIP)
 
-* CharacterSheet - the ability to create / maintain a character sheet
+* Character - the ability to create / maintain a character sheet
 * Campaign - the ability to track a set of resources, tied to a single campaign.
 * Type - The ability to have different 'types' of games.
 * Google - Google+ Integreation (mostly for Hangouts!)
@@ -17,5 +17,5 @@ Module List (WIP)
 ##Requirements
 
 * PHP 5.3+ (preferably with APC and memcached)
-* Apache2 (with mods rewrite and headers)
+* Apache2 (with mods rewrite)
 
