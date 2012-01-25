@@ -10,6 +10,7 @@ use vespora\models\SessionModel;
 use vespora\helpers\sessionHelper;
 use vespora\helpers\viewHelper;
 use apiClient;
+use apiOauth2Service;
 
 
 class UserController extends BaseController {
@@ -90,15 +91,37 @@ class UserController extends BaseController {
 
     public function google(){
         $client = new apiClient();
-        $client->setScopes(array('https://www.googleapis.com/auth/userinfo.profile'));
-        //$client->setRedirectUri('http://vespora-platform/user/google');
+        $oauth2 = new apiOauth2Service($client);
+        $client->setScopes(array('https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/userinfo.email' ));
 
-        View::setVar('info', print_r($GLOBALS));
+        if(isset($_GET['code'])){
+            $client->authenticate();
+
+        }
 
         if($client->getAccessToken()){
             //Logged in
-            //$this->redirect('/user/profile');
-            viewHelper::$layout = 'info';
+            $userModel = UserModel::getInstance();
+
+
+            $user = $oauth2->userinfo->get();
+            $userBean = $userModel->getUserByName($user['id']);
+
+            if(!$userBean){
+                // User's not registered, and we need to register.
+                $userBean = new UserBean;
+                $userBean->username = $user['id'];
+                $userBean->realname = $user['name'];
+                $userBean->password = 'SSO';
+                $userBean->user_permission_id = 2;
+                $userBean->email = $user['email'];
+                $userBean->insert();
+                $userBean = $userModel->getUserByName($user['id']);
+            }
+
+            $this->createSession($userBean->id);
+
+            $this->redirect('/user/profile');
         }
         else{
             //URL to Login
