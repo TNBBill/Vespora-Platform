@@ -6,6 +6,7 @@ use hydrogen\database\DatabaseEngine;
 use hydrogen\database\DatabaseEngineFactory;
 use vespora\models\sqlBeans\CharacterBean;
 use vespora\models\sqlBeans\CharacterStatBean;
+use vespora\models\sqlBeans\CharacterSkillBean;
 
 
 class CharacterModel extends Model
@@ -45,8 +46,23 @@ class CharacterModel extends Model
 
         $query = new Query ( "SELECT" );
         $query->where ( "character_id = ?", $id );
+        $query->orderby('stat');
 
         $type = CharacterStatBean::select ( $query );
+        if (! $type) {
+            return false;
+        }
+        return $type;
+
+    }
+
+    public function getSkills($id){
+
+        $query = new Query ( "SELECT" );
+        $query->where ( "character_id = ?", $id );
+        $query->orderby('skill');
+
+        $type = CharacterSkillBean::select ( $query );
         if (! $type) {
             return false;
         }

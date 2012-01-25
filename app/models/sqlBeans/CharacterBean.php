@@ -51,6 +51,15 @@ class CharacterBean extends SQLBean
     }
 
     /**
+     * Returns a list of skills  assossiated with this character
+     * @return mixed Array of CharacterStatBean
+     */
+    public function getSkills(){
+        $characterModel = CharacterModel::getInstance();
+        return $characterModel->getSkills($this->id);
+    }
+
+    /**
      * A function to return the current bean data as an array.
      *
      * @param bool $full flag to fill out the bean, with all of it's linked content.
@@ -74,6 +83,18 @@ class CharacterBean extends SQLBean
             }
         }
         $beanData['stats'] = $statArr;
+
+        // Character Skills
+        $skills = $this->getSkills();
+        $skillArr = array();
+
+        if($skills){
+            foreach($skills as $skill){
+                $name = explode(' ',$skill->skill);
+                $skillArr[$name[0]] = $skill->toArray();
+            }
+        }
+        $beanData['skills'] = $skillArr;
 
 
         return $beanData;

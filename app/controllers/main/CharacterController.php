@@ -10,6 +10,7 @@ use vespora\models\CampaignModel;
 use vespora\helpers\sessionHelper;
 use vespora\models\sqlBeans\CharacterBean;
 use vespora\models\sqlBeans\CharacterStatBean;
+use vespora\models\sqlBeans\CharacterSkillBean;
 use vespora\models\TypeModel;
 
 class CharacterController extends BaseController
@@ -107,7 +108,7 @@ class CharacterController extends BaseController
             $hasStat = false;
             if($currentStats){
                 foreach($currentStats as $currentStat){
-                   if($availableStat->name == $currentStat->name)
+                   if($availableStat->stat == $currentStat->stat)
                        $hasStat = true;
                 }
             }
@@ -121,6 +122,27 @@ class CharacterController extends BaseController
 
         }
 
+        //Updating skill block
+        $availableSkills = $typeModel->getSkillList($charBean->type_id);
+        $currentSkills = $charBean->getSkills();
+
+        foreach($availableSkills as $availableSkill){
+            $hasSkill = false;
+            if($currentSkills){
+                foreach($currentSkills as $currentSkill){
+                    if($availableSkill->skill == $currentSkill->skill)
+                        $hasSkill = true;
+                }
+            }
+            if(!$hasSkill){
+                $skillBean = new CharacterSkillBean;
+                $skillBean->character_id = $id;
+                $skillBean->skill = $availableSkill->skill;
+                $skillBean->value = $typeBean->defaultSkill;
+                $skillBean->insert();
+            }
+
+        }
 
         View::setVar('character', $charBean->toArray(true));
         viewHelper::$layout = 'character' . $typeBean->view . '/edit';
