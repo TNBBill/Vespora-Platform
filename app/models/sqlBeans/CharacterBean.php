@@ -4,6 +4,7 @@ namespace vespora\models\sqlBeans;
 use hydrogen\sqlbeans\SQLBean;
 use vespora\models\CampaignModel;
 use vespora\models\TypeModel;
+use vespora\models\CharacterModel;
 
 /**
  * User: bill
@@ -41,6 +42,15 @@ class CharacterBean extends SQLBean
     }
 
     /**
+     * Returns a list of stats assossiated with this character
+     * @return mixed Array of CharacterStatBean
+     */
+    public function getStats(){
+        $characterModel = CharacterModel::getInstance();
+        return $characterModel->getStats($this->id);
+    }
+
+    /**
      * A function to return the current bean data as an array.
      *
      * @param bool $full flag to fill out the bean, with all of it's linked content.
@@ -53,6 +63,19 @@ class CharacterBean extends SQLBean
         $beanData = $this->stored;
         $beanData['campaign'] = $this->getCampaign();
         $beanData['type'] = $this->getType();
+
+        // Character Stats
+        $stats = $this->getStats();
+        $statArr = array();
+
+        if($stats){
+            foreach($stats as $stat){
+                $statArr[$stat->stat] = $stat->toArray();
+            }
+        }
+        $beanData['stats'] = $statArr;
+
+
         return $beanData;
     }
 }
