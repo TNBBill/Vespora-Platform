@@ -22,15 +22,15 @@ $apiConfig = array(
     'use_objects' => false,
   
     // The application_name is included in the User-Agent HTTP header.
-    'application_name' => '',
+    'application_name' => 'Vespora Platform',
 
     // OAuth2 Settings, you can get these keys at https://code.google.com/apis/console
-    'oauth2_client_id' => '',
-    'oauth2_client_secret' => '',
-    'oauth2_redirect_uri' => '',
+    'oauth2_client_id' => '14088927287.apps.googleusercontent.com',
+    'oauth2_client_secret' => 'CkAzmeoXv8K8BmL9SLaL2hFw',
+    'oauth2_redirect_uri' => 'http://platform.vespora.com/user/google',
 
     // The developer key, you get this at https://code.google.com/apis/console
-    'developer_key' => '',
+    'developer_key' => 'AIzaSyA_1JMQ3xDE4h0J5DTuf2ZjXsQ2ffmS7kE',
 
     // OAuth1 Settings.
     // If you're using the apiOAuth auth class, it will use these values for the oauth consumer key and secret.
