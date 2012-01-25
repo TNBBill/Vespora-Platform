@@ -9,6 +9,7 @@ use vespora\models\UserModel;
 use vespora\models\SessionModel;
 use vespora\helpers\sessionHelper;
 use vespora\helpers\viewHelper;
+use apiClient;
 
 
 class UserController extends BaseController {
@@ -86,6 +87,25 @@ class UserController extends BaseController {
         $this->redirect('home/index');
     }
 
+
+    public function google(){
+        $client = new apiClient();
+        $client->setScopes(array('https://www.googleapis.com/auth/userinfo.profile'));
+        $client->setRedirectUri('http://vespora-platform/user/google');
+
+        View::setVar('info', print_r($GLOBALS));
+
+        if($client->getAccessToken()){
+            //Logged in
+            //$this->redirect('/user/profile');
+        }
+        else{
+            //URL to Login
+            View::setVar('AuthURL',$client->createAuthUrl());
+            viewHelper::$layout = 'user/googleLogin';
+        }
+        viewHelper::$layout = 'info';
+    }
 
 
     /** Session controlling functions */
