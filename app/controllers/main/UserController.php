@@ -91,20 +91,21 @@ class UserController extends BaseController {
     public function google(){
         $client = new apiClient();
         $client->setScopes(array('https://www.googleapis.com/auth/userinfo.profile'));
-        $client->setRedirectUri('http://vespora-platform/user/google');
+        //$client->setRedirectUri('http://vespora-platform/user/google');
 
         View::setVar('info', print_r($GLOBALS));
 
         if($client->getAccessToken()){
             //Logged in
             //$this->redirect('/user/profile');
+            viewHelper::$layout = 'info';
         }
         else{
             //URL to Login
             View::setVar('AuthURL',$client->createAuthUrl());
             viewHelper::$layout = 'user/googleLogin';
         }
-        viewHelper::$layout = 'info';
+
     }
 
 
