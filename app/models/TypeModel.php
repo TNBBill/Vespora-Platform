@@ -3,6 +3,7 @@ namespace vespora\models;
 use hydrogen\model\Model;
 use hydrogen\database\Query;
 use vespora\models\sqlBeans\TypeBean;
+use vespora\models\sqlBeans\TypeAvailableStatsBean;
 
 class TypeModel extends Model
 {
@@ -28,5 +29,15 @@ class TypeModel extends Model
         return $type;
     }
 
+    public function getStatList($id){
+        $query = new Query ( "SELECT" );
+        $query->where ( "type_id = ?", $id );
+
+        $type = TypeAvailableStatsBean::select ( $query );
+        if (! $type) {
+            return false;
+        }
+        return $type;
+    }
 }   
 ?>

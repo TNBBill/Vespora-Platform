@@ -5,6 +5,7 @@ use hydrogen\database\Query;
 use hydrogen\database\DatabaseEngine;
 use hydrogen\database\DatabaseEngineFactory;
 use vespora\models\sqlBeans\CharacterBean;
+use vespora\models\sqlBeans\CharacterStatBean;
 
 
 class CharacterModel extends Model
@@ -39,5 +40,18 @@ class CharacterModel extends Model
         $result = $stmt->fetchObject();
         return $result->id;
     }
-}   
+
+    public function getStats($id){
+
+        $query = new Query ( "SELECT" );
+        $query->where ( "character_id = ?", $id );
+
+        $type = CharacterStatBean::select ( $query );
+        if (! $type) {
+            return false;
+        }
+        return $type;
+
+    }
+}
 ?>
