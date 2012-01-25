@@ -9,10 +9,12 @@ use vespora\models\CharacterModel;
 use vespora\models\CampaignModel;
 use vespora\helpers\sessionHelper;
 use vespora\models\sqlBeans\CharacterBean;
+use vespora\models\sqlBeans\CharacterStatBean;
+use vespora\models\TypeModel;
 
 class CharacterController extends BaseController
 {
-    /**
+     /**
      * Constructor for CharacterController enforces the rule that users must be logged in to access the characters
      * section.
      */
@@ -22,6 +24,8 @@ class CharacterController extends BaseController
         if(!sessionHelper::loggedIn())
             $this->redirect('/user/login&return=/character');
     }
+
+
 
     /**
      * Generates a list of characters created by the current user, or redirects a guest to the login page.
@@ -82,16 +86,44 @@ class CharacterController extends BaseController
         return $this->redirect('/character/edit/' . $id);
     }
 
+    /**
+     * Handles editing of a character, including inserting of previously missed stats and skills.
+     * @param $id ID of character to edit.
+     */
     public function edit($id){
         $characterModel = CharacterModel::getInstance();
+        $typeModel = TypeModel::getInstance();
         $charBean = $characterModel->getCharacter($id);
+        $typeBean = $charBean->getType();
 
         if(sessionHelper::$user->id != $charBean->user_id)
             $this->show('/error/error403');
 
+        //Updating stat block
+        $availableStats = $typeModel->getStatList($charBean->type_id);
+        $currentStats = $charBean->getStats();
+
+        foreach($availableStats as $availableStat){
+            $hasStat = false;
+            if($currentStats){
+                foreach($currentStats as $currentStat){
+                   if($availableStat->name == $currentStat->name)
+                       $hasStat = true;
+                }
+            }
+            if(!$hasStat){
+                $statBean = new CharacterStatBean;
+                $statBean->character_id = $id;
+                $statBean->stat = $availableStat->stat;
+                $statBean->value = $typeBean->defaultStat;
+                $statBean->insert();
+            }
+
+        }
+
 
         View::setVar('character', $charBean->toArray(true));
-        viewHelper::$layout = 'character/edit';
+        viewHelper::$layout = 'character' . $typeBean->view . '/edit';
 
     }
 
