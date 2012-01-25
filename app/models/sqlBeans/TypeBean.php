@@ -18,7 +18,13 @@ class TypeBean extends SQLBean
     /**
      * An array of every field in the table.
      */
-    protected static $fields = array('id', 'name', 'system');
+    protected static $fields = array('id', 'name', 'system', 'defaultStat', 'defaultSkill', 'view');
+
+    public function toArray($full = false){
+        if(!$full)
+            return parent::toArray();
+        $retVal = $this->stored;
+    }
 
 }
 
