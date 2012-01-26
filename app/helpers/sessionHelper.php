@@ -10,6 +10,7 @@ class sessionHelper{
     public static $user;
     public static $userPermission;
     public static $sessionID;
+    public static $restID;
 
     /**
      * Function to check if the current user is an admin.
@@ -49,10 +50,12 @@ class sessionHelper{
         $sessionModel = SessionModel::getInstance();
         $sessionBean = $sessionModel->getSession(self::$sessionID);
 
+
         $userID = 1;
 
         if($sessionBean != false){
             $userID = $sessionBean->user_id;
+            self::$restID = $sessionBean->user_rest_key;
         }
 
         $userModel = UserModel::getInstance();

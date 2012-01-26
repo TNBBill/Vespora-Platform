@@ -50,6 +50,7 @@ class CharacterBean extends SQLBean
         return $characterModel->getStats($this->id);
     }
 
+
     /**
      * Returns a list of skills  assossiated with this character
      * @return mixed Array of CharacterStatBean

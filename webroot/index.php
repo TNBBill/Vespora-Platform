@@ -43,6 +43,15 @@ $router->request('/admin(/:controller(/:function(/:*args)))',
     array('controller' => 'home','function' => 'index' ),
     array('controller' => '\vespora\controllers\admin\%{controller|capfirst}Controller'));
 
+$router->post('/(:controller(/:function(/:*args)))',
+    array('controller' => 'home','function' => 'index'),
+    array('controller' => '\vespora\controllers\main\%{controller|capfirst}Controller',
+        'function' => '%{function|lower}_post'));
+
+$router->request('/(:controller(/:function(/:*args)))',
+    array('controller' => 'home','function' => 'index' ),
+    array('controller' => '\vespora\controllers\main\%{controller|capfirst}Controller'));
+
 
 // Restful framework routes!
 $router->get('/(:controller(/:function(/:*args))).json',
@@ -61,16 +70,13 @@ $router->post('/(:controller(/:function(/:*args))).json',
     array('controller' => 'home','function' => 'full'),
     array('controller' => '\vespora\controllers\rest\%{controller|capfirst}Controller',
         'function' => '%{function|lower}_post'));
+$router->request('(/:*args).json',
+    array('controller' => 'error','function' => 'notFound'),
+    array('controller' => '\vespora\controllers\rest\%{controller|capfirst}Controller',
+        'function' => '%{function|lower}_get'));
 
 
-$router->post('/(:controller(/:function(/:*args)))',
-    array('controller' => 'home','function' => 'index'),
-    array('controller' => '\vespora\controllers\main\%{controller|capfirst}Controller',
-        'function' => '%{function|lower}_post'));
 
-$router->request('/(:controller(/:function(/:*args)))',
-    array('controller' => 'home','function' => 'index' ),
-    array('controller' => '\vespora\controllers\main\%{controller|capfirst}Controller'));
 
 $router->catchAll(array('controller'=> 'Error', 'function'=> 'error404' ),
     array('controller' => '\vespora\controllers\main\%{controller|capfirst}Controller'));

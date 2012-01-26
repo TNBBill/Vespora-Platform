@@ -11,6 +11,12 @@
                 <script LANGUAGE="JavaScript" SRC="{{file}}"> </script>
             {% endfor %}
         {% endblock %}
+        {% block rest %}
+            {% if exists restKey %}
+                 <script LANGUAGE="JavaScript">var restkey='{{restKey}}'; </script>
+
+            {% endif %}
+        {% endblock %}
     </head>
     <body>
     {% block flash %}

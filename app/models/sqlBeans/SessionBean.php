@@ -12,7 +12,7 @@ class SessionBean extends SQLBean {
 	/**
 	 * An array of every field in the table.
 	 */
-	protected static $fields = array ('uid', 'user_id' );
+	protected static $fields = array ('uid', 'user_id', 'user_rest_key' );
 
 }
 ?>

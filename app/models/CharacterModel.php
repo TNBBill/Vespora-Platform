@@ -42,10 +42,12 @@ class CharacterModel extends Model
         return $result->id;
     }
 
-    public function getStats($id){
+    public function getStats($id, $stat= false){
 
         $query = new Query ( "SELECT" );
         $query->where ( "character_id = ?", $id );
+        if($stat)
+            $query->where ( "stat = ?", $stat );
         $query->orderby('stat');
 
         $type = CharacterStatBean::select ( $query );

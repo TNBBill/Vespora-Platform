@@ -22,7 +22,8 @@ class SessionModel extends Model {
 		$query->intoTable ( 'session' );
 		$query->intoField ( 'uid' );
 		$query->intoField ( 'user_id' );
-		$query->values ( "(?, ?)", array ($uid, $userID ) );
+        $query->intoField ('user_rest_key');
+		$query->values ( "(?, ?, ?)", array ($uid, $userID , uniqid('vespora_')));
 		$stmt = $query->prepare ();
 		$stmt->execute ();
 	}

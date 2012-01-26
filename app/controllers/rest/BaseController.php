@@ -15,6 +15,12 @@ class BaseController extends Controller {
     //Constructor
     function __construct(){
         parent::__construct();
+        if ($_SERVER['REQUEST_METHOD']!= 'GET'){
+            //Security stuff here.
+
+        }
+
+
         header('Content-type: application/json');
         viewHelper::$theme = 'rest';
     }
