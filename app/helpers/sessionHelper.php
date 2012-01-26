@@ -3,6 +3,7 @@ namespace vespora\helpers;
 
 use vespora\models\SessionModel;
 use vespora\models\UserModel;
+use hydrogen\log\Log;
 
 class sessionHelper{
     private static $started = false;
@@ -59,6 +60,29 @@ class sessionHelper{
         self::$userPermission = $userModel->getPermissions($userID);
 
 
+    }
+
+    /** Session controlling functions */
+
+    /**
+     * Creates a session for the user, with the specified user ID.
+     * @param $userID
+     */
+    public static function createSession($userID){
+        Log::info("Creating Session - User ID: $userID | Session ID: " . sessionHelper::$sessionID);
+        SessionModel::getInstance()->insertSession($userID,   sessionHelper::$sessionID);
+        sessionHelper::setupSession();
+
+    }
+
+    /**
+     * destroies the current user's session.
+     * @return bool
+     */
+    public static function destroySession(){
+        $sessionModel = SessionModel::getInstance();
+        $sessionModel->deleteSession(sessionHelper::$sessionID);
+        return session_destroy();
     }
 
 }
