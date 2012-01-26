@@ -27,7 +27,7 @@ $apiConfig = array(
     // OAuth2 Settings, you can get these keys at https://code.google.com/apis/console
     'oauth2_client_id' => '14088927287.apps.googleusercontent.com',
     'oauth2_client_secret' => 'CkAzmeoXv8K8BmL9SLaL2hFw',
-    'oauth2_redirect_uri' => 'http://platform.vespora.com/user/google',
+    'oauth2_redirect_uri' => 'http://platform.vespora.com/user/login',
 
     // The developer key, you get this at https://code.google.com/apis/console
     'developer_key' => 'AIzaSyA_1JMQ3xDE4h0J5DTuf2ZjXsQ2ffmS7kE',
