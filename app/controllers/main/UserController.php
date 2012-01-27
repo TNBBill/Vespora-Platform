@@ -11,6 +11,7 @@ use vespora\helpers\sessionHelper;
 use vespora\helpers\viewHelper;
 use apiClient;
 use apiOauth2Service;
+use LightOpenID;
 
 
 class UserController extends BaseController {
@@ -28,6 +29,30 @@ class UserController extends BaseController {
     }
 
     public function login(){
+        $openid = new LightOpenID('platform.vespora.com/user/SAML');
+	 if(!$openid->mode){
+            $openid->required = array('contact/email');
+            $openid->optional = array('namePerson', 'namePerson/friendly');
+            $openid->identity = 'https://www.google.com/accounts/o8/id';
+            $this->redirect($openid->authUrl());
+	 }
+	 elseif($openid->mode == 'cancel'){
+	     $this->redirect('/home/index');
+	 }
+	 else{
+	     $this->redirect('/user/profile');
+	 }
+    }
+
+    public function SAML(){
+	 $openid = new LightOpenID('platform.vespora.com/user/SAML');
+        $this->redirect('/user/profile');
+    }
+
+
+
+
+    public function login_old(){
         $client = new apiClient();
         $oauth2 = new apiOauth2Service($client);
         $client->setScopes(array('https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/userinfo.email' ));

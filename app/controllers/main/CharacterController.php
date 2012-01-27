@@ -146,7 +146,7 @@ class CharacterController extends BaseController
 
         View::setVar('restKey', sessionHelper::$restID);
         View::setVar('character', $charBean->toArray(true));
-        viewHelper::$layout = 'character' . $typeBean->view . '/edit';
+        viewHelper::$layout = 'character/' . $typeBean->name . '/edit';
 
     }
 

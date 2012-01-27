@@ -15,6 +15,30 @@ use vespora\models\TypeModel;
 
 class CharacterController extends BaseController
 {
+
+    /**
+     * Generates a list of characters created by the current user, or redirects a guest to the login page.
+     * @return null|void
+     */
+    public function index_get()
+    {
+        $characterModel = CharacterModel::getInstance();
+        $charBeans = $characterModel->getCharacterList(sessionHelper::$user->id);
+        $characters= array();
+        if($charBeans){
+
+            foreach($charBeans as $char){
+                $characters[] = $char->toArray(true);
+            }
+
+        }
+
+        View::setVar('characters', $characters);
+        viewHelper::$layout = "character/index";
+
+        return null;
+    }
+
     /**
      * retrieves and sends the entire character's record to the view, for JSON rendering.
      * @param $id
@@ -23,10 +47,11 @@ class CharacterController extends BaseController
     public function full_get($id){
         $characterModel = CharacterModel::getInstance();
         $charBean = $characterModel->getCharacter($id);
+	 $typeBean = $charBean->getType();
         if(!$charBean)
             return $this->redirect('/error/notFound.json');
         View::setVar('character', $charBean->toArray(true));
-        viewHelper::$layout = 'character/full';
+        viewHelper::$layout = 'character/' . $typeBean->name . '/full';
         return true;
     }
 
