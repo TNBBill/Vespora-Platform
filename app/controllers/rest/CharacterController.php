@@ -30,6 +30,13 @@ class CharacterController extends BaseController
         return true;
     }
 
+    /**
+     * This function updates the selected stat for the specified character.
+     * It then returns a json object indicating the success of the call. 
+     * @param $character the ID of the character 
+     * @param $stat the Stat of the character
+     * @return bool|void
+     */
     public function stat_put($character, $stat){
         $characterModel = CharacterModel::getInstance();
         $statBean = $characterModel->getStats($character, $stat);
