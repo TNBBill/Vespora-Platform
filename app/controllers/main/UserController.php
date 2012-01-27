@@ -30,23 +30,45 @@ class UserController extends BaseController {
 
     public function login(){
         $openid = new LightOpenID('platform.vespora.com/user/SAML');
-	 if(!$openid->mode){
+	 $openid->returnUrl = 'http://platform.vespora.com/user/SAML';
+	 //if(!$openid->mode){
             $openid->required = array('contact/email');
             $openid->optional = array('namePerson', 'namePerson/friendly');
             $openid->identity = 'https://www.google.com/accounts/o8/id';
-            $this->redirect($openid->authUrl());
-	 }
-	 elseif($openid->mode == 'cancel'){
-	     $this->redirect('/home/index');
-	 }
-	 else{
-	     $this->redirect('/user/profile');
-	 }
+            return $this->redirect($openid->authUrl());
+	 //}
+	 return $this->redirect('/user/SAML');
     }
 
     public function SAML(){
 	 $openid = new LightOpenID('platform.vespora.com/user/SAML');
-        $this->redirect('/user/profile');
+	 $openid->returnUrl = 'http://platform.vespora.com/user/SAML';
+	if(!$openid->mode != 'cancel'){
+		$userModel = UserModel::getInstance();
+		$userBean = $userModel->getUserByName($openid->data['openid_ext1_value_contact_email']);
+
+		if(!$userBean){
+                // User's not registered, and we need to register.
+                $userBean = new UserBean;
+                $userBean->username = $openid->data['openid_ext1_value_contact_email'];
+                $userBean->realname = $openid->data['openid_ext1_value_contact_email'];
+                $userBean->password = 'SSO';
+                $userBean->user_permission_id = 2;
+                $userBean->email = $openid->data['openid_ext1_value_contact_email'];
+                $userBean->insert();
+                $userBean = $userModel->getUserByName($openid->data['openid_ext1_value_contact_email']);
+            }
+
+		sessionHelper::createSession($userBean->id);
+
+            $this->redirect('/user/profile');
+	}
+	else{
+		return $this->redirect('/');
+	}
+ 
+	return true;
+
     }
 
 
@@ -68,12 +90,12 @@ class UserController extends BaseController {
 
 
             $user = $oauth2->userinfo->get();
-            $userBean = $userModel->getUserByName($user['id']);
+            $userBean = $userModel->getUserByName($user['email']);
 
             if(!$userBean){
                 // User's not registered, and we need to register.
                 $userBean = new UserBean;
-                $userBean->username = $user['id'];
+                $userBean->username = $user['email'];
                 $userBean->realname = $user['name'];
                 $userBean->password = 'SSO';
                 $userBean->user_permission_id = 2;
