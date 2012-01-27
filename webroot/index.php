@@ -7,6 +7,7 @@ define('HYDROGEN_AUTOCONFIG_PATH', __DIR__ . '/../lib/hydrogen.autoconfig.php');
 require_once(__DIR__ . "/../lib/Hydrogen/hydrogen.inc.php");
 require_once(__DIR__ . '/../lib/googleplus/google-api-php-client/src/apiClient.php');
 require_once (__DIR__ . '/../lib/googleplus/google-api-php-client/src/contrib/apiOauth2Service.php');
+require_once (__DIR__ . '/../lib/lightopenid/openid.php');
 
 //Namespace Inclusions
 use hydrogen\config\Config;
