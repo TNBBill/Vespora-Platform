@@ -4,17 +4,19 @@
     "type": "{{character.type.name}}",
     "stats":{
         {% for stat in character.stats %}
-        "{{stat.name}}": "{{stat.currentValue}}"
+        "{{stat.name}}": "{{stat.currentValue}}" {% if forloop.last %} {% else %},{% endif %}
+
         {% endfor %}
         }
     "skills":{
-            {% for skill in character.skills %}
-            "skill":{
+{% for skill in character.skills %}
+            "{{skill.name}}":{
                 "name": "{{skill.name}}",
                 "value": "{{skill.currentValue}}",
                 "attribute": "{{skill.stat}}"
-            }
-            {% endfor %}
+            }{% if forloop.last %} {% else %},{% endif %}
+
+{% endfor %}
 
     }
 
