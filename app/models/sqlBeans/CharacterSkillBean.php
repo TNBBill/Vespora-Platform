@@ -3,6 +3,7 @@ namespace vespora\models\sqlBeans;
 
 use vespora\models\TypeModel;
 use hydrogen\sqlbeans\SQLBean;
+use hydrogen\database\Query;
 use vespora\models\CharacterModel;
 
 /**
@@ -36,6 +37,16 @@ class CharacterSkillBean extends SQLBean
         $retVal['name'] = $skill[0]->skill;
         $retVal['stat'] = $stat[0]->stat;
         return $retVal;
+    }
+
+    public function update(){
+        $query = new Query('UPDATE');
+        $query->table(self::$tableNoPrefix);
+        $query->set('currentValue = ?', $this->currentValue);
+        $query->where('character_id = ?', $this->character_id);
+        $query->where('skill_id = ?', $this->skill_id);
+        $stmt = $query->prepare();
+        $stmt->execute();
     }
 
 }
