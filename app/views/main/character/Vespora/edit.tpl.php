@@ -6,13 +6,14 @@
 
 <h3>Stats</h3>
     {% for stat in character.stats %}
-        <label>{{stat.stat}}: {{stat.value}}</label> <br />
+        <label>{{stat.name}}: {{stat.currentValue}}</label> <br />
     {% endfor %}
 
 <h3>Skills</h3>
 {% for skill in character.skills %}
-<label>{{skill.skill}}: {{skill.value}}</label> <br />
+<label>{{skill.name}} ({{skill.stat}}): {{skill.currentValue}}</label> <br />
 {% endfor %}
-<label>General Knowledge: {{character.stats.Smarts.value}}</label>
+<label>General Knowledge: {{character.stats.Smarts.currentValue}}</label>
 
+    <a href="#" onclick="updateStat('{{character.id}}','1', 'D8');" name="D8 Agility">D8 Agility</a>
 {% endblock %}
