@@ -14,7 +14,7 @@ class TypeModel extends Model
      * @param $id ID of the Type
      * @return bool Returns false, or the type with the passed ID
      */
-    public function getType($id){
+    public function getType__600($id){
         $query = new Query ( "SELECT" );
         $query->where ( "id = ?", $id );
         $type = TypeBean::select ( $query );
@@ -28,7 +28,7 @@ class TypeModel extends Model
      * Gets all the types currently stored.
      * @return array|bool
      */
-    public function getTypeList(){
+    public function getTypeList__600(){
         $query = new Query ( "SELECT" );
 
         $type = TypeBean::select ( $query );
@@ -43,7 +43,7 @@ class TypeModel extends Model
      * @param $id
      * @return array|bool
      */
-    public function getStatList($id, $stat = false){
+    public function getStatList__600($id, $stat = false){
         $query = new Query ( "SELECT" );
         $query->where ( "type_id = ?", $id );
 
@@ -62,7 +62,7 @@ class TypeModel extends Model
      * @param $id
      * @return array|bool
      */
-    public function getSkillList($id, $skill = false){
+    public function getSkillList__600($id, $skill = false){
         $query = new Query ( "SELECT" );
         $query->where ( "type_id = ?", $id );
         if($skill)
