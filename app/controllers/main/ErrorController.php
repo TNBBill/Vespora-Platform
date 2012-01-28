@@ -9,13 +9,9 @@ use vespora\helpers\viewHelper;
 class ErrorController extends BaseController {
 	
 	public function error404() {
-        viewHelper::$layout = 'error/404';
+        $this->redirect('/status/notFound');
 	}
 
-    public function error403() {
-        //For now we're recycling the 404 error.
-        viewHelper::$layout = 'error/404';
-    }
 }
 
 ?>

@@ -1,3 +1,0 @@
-{
-    "error":"Feature not supported."
-}
