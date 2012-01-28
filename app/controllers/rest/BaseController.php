@@ -38,8 +38,6 @@ class BaseController extends Controller {
 
         }
 
-
-        parse_str(file_get_contents("php://input"),$post_vars);
         header('Content-type: application/json');
         viewHelper::$theme = 'rest';
     }
