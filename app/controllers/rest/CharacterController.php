@@ -47,7 +47,7 @@ class CharacterController extends BaseController
     public function full_get($id){
         $characterModel = CharacterModel::getInstance();
         $charBean = $characterModel->getCharacter($id);
-	 $typeBean = $charBean->getType();
+	    $typeBean = $charBean->getType();
         if(!$charBean)
             return $this->redirect('/error/notFound.json');
         View::setVar('character', $charBean->toArray(true));
@@ -62,14 +62,20 @@ class CharacterController extends BaseController
      * @param $stat the Stat of the character
      * @return bool|void
      */
-    public function stat_put($character, $stat){
+    public function stat_put($character){
+        if(!isset($this->_PUT['value']) or !isset($this->_PUT['stat']) )
+            return $this->redirect('/error/noValue.json');
+
         $characterModel = CharacterModel::getInstance();
-        $statBean = $characterModel->getStats($character, $stat);
+        $statBean = $characterModel->getStats($character, $this->_PUT['stat']);
+
         if(!$statBean)
             return $this->redirect('/error/notFound.json');
-        if(!isset($_POST['value']))
-            return $this->redirect('/error/noValue.json');
-        $statBean->value = $_POST['value'];
+
+        $statBean = $statBean[0];
+        $statBean->stat_id = $statBean->stat_id;
+        $statBean->character_id = $statBean->character_id;
+        $statBean->currentValue = $this->_PUT['value'];
         $statBean->update();
 
         viewHelper::$layout= 'success';

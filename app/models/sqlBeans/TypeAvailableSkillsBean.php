@@ -2,6 +2,7 @@
 namespace vespora\models\sqlBeans;
 
 use hydrogen\sqlbeans\SQLBean;
+use vespora\models\TypeModel;
 
 /**
  * User: bill
@@ -12,13 +13,26 @@ class TypeAvailableSkillsBean extends SQLBean
 {
     protected static $tableNoPrefix = 'type_availableSkills';
     protected static $tableAlias = 'type_availableSkills';
-	protected static $primaryKey = array('type_id','skill');
-	protected static $primaryKeyIsAutoIncrement = false;
+	protected static $primaryKey = 'id';
+	protected static $primaryKeyIsAutoIncrement = true;
 	
 	/**
      * An array of every field in the table.
      */
-	protected static $fields = array('type_id', 'skill', 'description');
+	protected static $fields = array('id', 'type_id', 'skill', 'description', 'stat_id');
+
+    public function toArray($full = true){
+        if(!$full)
+            return $this->stored;
+        $typeModel = TypeModel::getInstance();
+
+        $retVal =  $this->stored;
+        $stat = $typeModel->getStatList($this->type_id, $this->stat_id);
+
+        $retVal['stat'] = $stat[0]->toArray();
+
+        return $retVal;
+    }
 
 }
 

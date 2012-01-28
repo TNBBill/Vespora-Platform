@@ -108,15 +108,15 @@ class CharacterController extends BaseController
             $hasStat = false;
             if($currentStats){
                 foreach($currentStats as $currentStat){
-                   if($availableStat->stat == $currentStat->stat)
+                   if($availableStat->id == $currentStat->stat_id)
                        $hasStat = true;
                 }
             }
             if(!$hasStat){
                 $statBean = new CharacterStatBean;
                 $statBean->character_id = $id;
-                $statBean->stat = $availableStat->stat;
-                $statBean->value = $typeBean->defaultStat;
+                $statBean->stat_id = $availableStat->id;
+                $statBean->currentValue = $typeBean->defaultStat;
                 $statBean->insert();
             }
 
@@ -130,22 +130,23 @@ class CharacterController extends BaseController
             $hasSkill = false;
             if($currentSkills){
                 foreach($currentSkills as $currentSkill){
-                    if($availableSkill->skill == $currentSkill->skill)
+                    if($availableSkill->id == $currentSkill->skill_id)
                         $hasSkill = true;
                 }
             }
             if(!$hasSkill){
                 $skillBean = new CharacterSkillBean;
                 $skillBean->character_id = $id;
-                $skillBean->skill = $availableSkill->skill;
-                $skillBean->value = $typeBean->defaultSkill;
+                $skillBean->skill_id = $availableSkill->id;
+                $skillBean->currentValue = $typeBean->defaultSkill;
                 $skillBean->insert();
             }
 
         }
 
+        $charArray = $charBean->toArray(true);
         View::setVar('restKey', sessionHelper::$restID);
-        View::setVar('character', $charBean->toArray(true));
+        View::setVar('character',$charArray );
         viewHelper::$layout = 'character/' . $typeBean->name . '/edit';
 
     }

@@ -43,9 +43,12 @@ class TypeModel extends Model
      * @param $id
      * @return array|bool
      */
-    public function getStatList($id){
+    public function getStatList($id, $stat = false){
         $query = new Query ( "SELECT" );
         $query->where ( "type_id = ?", $id );
+
+        if($stat)
+            $query->where ( "id = ?", $stat);
 
         $type = TypeAvailableStatsBean::select ( $query );
         if (! $type) {
@@ -59,9 +62,11 @@ class TypeModel extends Model
      * @param $id
      * @return array|bool
      */
-    public function getSkillList($id){
+    public function getSkillList($id, $skill = false){
         $query = new Query ( "SELECT" );
         $query->where ( "type_id = ?", $id );
+        if($skill)
+            $query->where ( "id = ?", $skill);
 
         $type = TypeAvailableSkillsBean::select ( $query );
         if (! $type) {

@@ -71,8 +71,8 @@ class CharacterBean extends SQLBean
             return parent::toArray();
 
         $beanData = $this->stored;
-        $beanData['campaign'] = $this->getCampaign();
-        $beanData['type'] = $this->getType();
+        $beanData['campaign'] = $this->getCampaign()->toArray();
+        $beanData['type'] = $this->getType()->toArray();
 
         // Character Stats
         $stats = $this->getStats();
@@ -80,7 +80,8 @@ class CharacterBean extends SQLBean
 
         if($stats){
             foreach($stats as $stat){
-                $statArr[$stat->stat] = $stat->toArray();
+                $temp = $stat->toArray();
+                $statArr[$temp['name']] = $temp;
             }
         }
         $beanData['stats'] = $statArr;
@@ -91,8 +92,8 @@ class CharacterBean extends SQLBean
 
         if($skills){
             foreach($skills as $skill){
-                $name = explode(' ',$skill->skill);
-                $skillArr[$name[0]] = $skill->toArray();
+                $temp = $skill->toArray();
+                $skillArr[$temp['name']] = $temp;
             }
         }
         $beanData['skills'] = $skillArr;

@@ -47,8 +47,8 @@ class CharacterModel extends Model
         $query = new Query ( "SELECT" );
         $query->where ( "character_id = ?", $id );
         if($stat)
-            $query->where ( "stat = ?", $stat );
-        $query->orderby('stat');
+            $query->where ( "stat_id = ?", $stat );
+        $query->orderby('stat_id');
 
         $type = CharacterStatBean::select ( $query );
         if (! $type) {
@@ -62,7 +62,7 @@ class CharacterModel extends Model
 
         $query = new Query ( "SELECT" );
         $query->where ( "character_id = ?", $id );
-        $query->orderby('skill');
+        $query->orderby('skill_id');
 
         $type = CharacterSkillBean::select ( $query );
         if (! $type) {
