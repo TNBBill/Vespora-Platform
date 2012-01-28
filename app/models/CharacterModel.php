@@ -48,26 +48,38 @@ class CharacterModel extends Model
         $query->where ( "character_id = ?", $id );
         if($stat)
             $query->where ( "stat_id = ?", $stat );
-        $query->orderby('stat_id');
+
+        $query->join('type_availableStats', 'availableStats', 'LEFT');
+        $query->on('vespora_character_stat.stat_id = availableStats.id');
+        $query->orderby('availableStats.stat');
 
         $type = CharacterStatBean::select ( $query );
         if (! $type) {
             return false;
         }
+        if($stat)
+            return $type[0];
         return $type;
 
     }
 
-    public function getSkills($id){
+    public function getSkills($id, $skill= false){
 
         $query = new Query ( "SELECT" );
         $query->where ( "character_id = ?", $id );
-        $query->orderby('skill_id');
+
+        if($skill)
+            $query->where ( "skill_id = ?", $skill );
+        $query->join('type_availableSkills', 'availableSkills', 'LEFT');
+        $query->on('vespora_character_skill.skill_id = availableSkills.id');
+        $query->orderby('availableSkills.skill');
 
         $type = CharacterSkillBean::select ( $query );
         if (! $type) {
             return false;
         }
+        if($skill)
+            return $type[0];
         return $type;
 
     }
