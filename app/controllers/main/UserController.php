@@ -137,7 +137,7 @@ class UserController extends BaseController {
     public function logout() {
         sessionHelper::destroySession();
         View::setVar ( 'flashMessage', 'Logout Successful.' );
-        $this->redirect('home/index');
+        $this->redirect('/home/index');
     }
 
 
