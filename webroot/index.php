@@ -71,15 +71,9 @@ $router->post('/(:controller(/:function(/:*args))).json',
     array('controller' => 'home','function' => 'full'),
     array('controller' => '\vespora\controllers\rest\%{controller|capfirst}Controller',
         'function' => '%{function|lower}_post'));
-$router->request('(/:*args).json',
-    array('controller' => 'error','function' => 'notFound'),
-    array('controller' => '\vespora\controllers\rest\%{controller|capfirst}Controller',
-        'function' => '%{function|lower}_get'));
 
 
-
-
-$router->catchAll(array('controller'=> 'Error', 'function'=> 'error404' ),
+$router->catchAll(array('controller'=> 'Status', 'function'=> 'notFound' ),
     array('controller' => '\vespora\controllers\main\%{controller|capfirst}Controller'));
 
 //Prepare and dispatch

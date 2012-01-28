@@ -1,7 +1,7 @@
 {% extends main/base %}
 
-{% block title %}Error: 404 Page Not Found{% endblock %}
+{% block title %}{{code}} - {{status}}{% endblock %}
 
 {% block content %}
-an Error message
+<img src='/images/http/{{code}}.jpg' />
 {% endblock %}
