@@ -49,7 +49,7 @@ class CharacterController extends BaseController
         $charBean = $characterModel->getCharacter($id);
 	    $typeBean = $charBean->getType();
         if(!$charBean)
-            return $this->redirect('/error/notFound.json');
+            return $this->redirect('/status/notFound');
         View::setVar('character', $charBean->toArray(true));
         viewHelper::$layout = 'character/' . $typeBean->name . '/full';
         return true;
@@ -64,22 +64,36 @@ class CharacterController extends BaseController
      */
     public function stat_put($character){
         if(!isset($this->_PUT['value']) or !isset($this->_PUT['stat']) )
-            return $this->redirect('/error/noValue.json');
+            return $this->redirect('/status/expectationFailed');
 
         $characterModel = CharacterModel::getInstance();
         $statBean = $characterModel->getStats($character, $this->_PUT['stat']);
 
         if(!$statBean)
-            return $this->redirect('/error/notFound.json');
+            return $this->redirect('/status/notFound');
 
-        $statBean = $statBean[0];
         $statBean->stat_id = $statBean->stat_id;
         $statBean->character_id = $statBean->character_id;
         $statBean->currentValue = $this->_PUT['value'];
         $statBean->update();
 
-        viewHelper::$layout= 'success';
-        return true;
+        return $this->redirect('/status/ok');
+    }
+
+    public function skill_put($character){
+        if(!isset($this->_PUT['value']) or !isset($this->_PUT['skill']) )
+            return $this->redirect('/status/expectationFailed');
+
+        $characterModel = CharacterModel::getInstance();
+        $skillBean = $characterModel->getSkills($character, $this->_PUT['skill']);
+
+        if(!$skillBean)
+            return $this->redirect('/status/notFound');
+
+        $skillBean->currentValue = $this->_PUT['value'];
+        $skillBean->update();
+
+        return $this->redirect('/status/ok');
     }
 
 
