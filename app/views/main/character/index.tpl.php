@@ -1,6 +1,7 @@
 {% extends main/base %}
 
 {% block content %}
+<div class='grid_16'>
     <table>
         <thead>
             <tr>
@@ -29,4 +30,5 @@
         </tbody>
     </table>
     <a href='/character/add'>Add a Character</a>
+</div>
 {% endblock %}

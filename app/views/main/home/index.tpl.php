@@ -1,5 +1,7 @@
 {% extends main/base %}
 
 {% block content %}
-<p>Welcome to vespora.</p>
+<div class='grid_16'>
+    <p>Welcome to vespora.</p>
+</div>
 {% endblock %}
