@@ -1,22 +1,22 @@
 {% extends main/base %}
 
 {% block content %}
-
-<table>
-    <thead>
-    <tr>
-        <th>Campaign Name</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for campaign in campaigns %}
+<div class='grid_16'>
+    <table>
+        <thead>
         <tr>
-            <td>{{campaign.name}}</td>
-            <td><a href='#'>/campaign/characters/{{campaign.id}}</a></td>
+            <th>Campaign Name</th>
+            <th></th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
-
+        </thead>
+        <tbody>
+        {% for campaign in campaigns %}
+            <tr>
+                <td>{{campaign.name}}</td>
+                <td><a href='/campaign/characters/{{campaign.id}}'>View Characters</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

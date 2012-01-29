@@ -7,6 +7,7 @@ use hydrogen\config\Config;
 use vespora\helpers\viewHelper;
 
 use vespora\models\CampaignModel;
+use vespora\models\CharacterModel;
 
 class CampaignController extends BaseController
 {
@@ -23,6 +24,24 @@ class CampaignController extends BaseController
 
 
         viewHelper::$layout = "campaign/index";
+    }
+
+    public function characters($id){
+        $characterModel = CharacterModel::getInstance();
+        $charBeans = $characterModel->getCampaignCharacterList($id);
+        $characters= array();
+        if($charBeans){
+
+            foreach($charBeans as $char){
+                $characters[] = $char->toArray(true);
+            }
+
+        }
+
+        View::setVar('characters', $characters);
+        viewHelper::$layout = "campaign/characters";
+
+        return null;
     }
 
 }

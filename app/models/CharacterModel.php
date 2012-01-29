@@ -23,6 +23,17 @@ class CharacterModel extends Model
         return $character[0];
     }
 
+    public function getCampaignCharacterList($campaign){
+        $query = new Query ( "SELECT" );
+
+        $query->where ( "campaign_id = ?", $campaign );
+        $character = CharacterBean::select ( $query );
+        if (! $character) {
+            return false;
+        }
+        return $character;
+    }
+
     public function getCharacterList($user = false){
         $query = new Query ( "SELECT" );
         if($user)

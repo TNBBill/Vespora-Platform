@@ -40,6 +40,7 @@
             {% block menu %}
                 <ul>
                     <li><a href='/character'>Your Characters</a></li>
+                    <li><a href='/campaign'>Campaigns</a></li>
                     <li><a href='/user/login'>Login</a></li>
                     <li><a href='/user/logout'>Logout</a></li>
                 </ul>

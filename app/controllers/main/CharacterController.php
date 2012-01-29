@@ -169,6 +169,23 @@ class CharacterController extends BaseController
 
     }
 
+    public function view($id){
+        $characterModel = CharacterModel::getInstance();
+        $charBean = $characterModel->getCharacter($id);
+        $typeBean = $charBean->getType();
+
+
+
+        $charArray = $charBean->toArray(true);
+
+
+
+
+        View::setVar('character',$charArray );
+        viewHelper::$layout = 'character/' . $typeBean->name . '/view';
+
+    }
+
 }
 
 ?>
