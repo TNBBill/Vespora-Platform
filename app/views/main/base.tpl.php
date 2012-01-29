@@ -17,13 +17,33 @@
 
             {% endif %}
         {% endblock %}
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+                var output = $(window).width();
+                $('#docWidth').html('Document Width: '+ output + 'px');
+
+                $(window).resize(function(){
+                    output = $(window).width();
+                    $('#docWidth').html('Document Width: ' + output + 'px');
+                });
+
+            });
+        </script>
     </head>
     <body>
-    {% block flash %}
-        {% if exists flashMessage %}
-            Flash: {{flashMessage }}
-        {% endif %}
-    {% endblock %}
-    {% block content %}{% endblock %}
+
+    <div class="marker container_16">
+        {% block flash %}
+            {% if exists flashMessage %}
+
+            <div id='Flash' class='flash grid_12'>Flash: {{flashMessage }}</div>
+
+            {% endif %}
+        {% endblock %}
+        {% block content %}{% endblock %}
+    </div>
+
+
     </body>
 </html>
