@@ -145,6 +145,24 @@ class CharacterController extends BaseController
         }
 
         $charArray = $charBean->toArray(true);
+
+
+        //Skill Ranks
+        $skillRankList = $typeModel->getSkillRanks($charBean->type_id);
+        $skillRanks = array();
+        foreach($skillRankList as $skillRank){
+            $skillRanks[] = $skillRank->toArray();
+        }
+
+        //Stat Ranks
+        $statRankList = $typeModel->getStatRanks($charBean->type_id);
+        $statRanks = array();
+        foreach($statRankList as $statRank){
+            $statRanks[] = $statRank->toArray();
+        }
+
+        View::setVar('statRanks', $statRanks);
+        View::setVar('skillRanks', $skillRanks);
         View::setVar('restKey', sessionHelper::$restID);
         View::setVar('character',$charArray );
         viewHelper::$layout = 'character/' . $typeBean->name . '/edit';

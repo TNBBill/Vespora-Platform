@@ -77,7 +77,7 @@ class CharacterController extends BaseController
         $statBean->currentValue = $this->_PUT['value'];
         $statBean->update();
 
-        return $this->redirect('/status/ok');
+        return viewHelper::$layout = 'success';
     }
 
     public function skill_put($character){
@@ -93,7 +93,7 @@ class CharacterController extends BaseController
         $skillBean->currentValue = $this->_PUT['value'];
         $skillBean->update();
 
-        return $this->redirect('/status/ok');
+        return viewHelper::$layout = 'success';
     }
 
 

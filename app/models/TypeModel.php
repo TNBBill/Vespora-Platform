@@ -5,6 +5,8 @@ use hydrogen\database\Query;
 use vespora\models\sqlBeans\TypeBean;
 use vespora\models\sqlBeans\TypeAvailableStatsBean;
 use vespora\models\sqlBeans\TypeAvailableSkillsBean;
+use vespora\models\sqlBeans\TypeSkillRanksBean;
+use vespora\models\sqlBeans\TypeStatRanksBean;
 
 class TypeModel extends Model
 {
@@ -74,5 +76,29 @@ class TypeModel extends Model
         }
         return $type;
     }
-}   
+
+
+
+    public function getSkillRanks__600($id){
+        $query = new Query ( "SELECT" );
+        $query->where ( "type_id = ?", $id );
+
+        $type = TypeSkillRanksBean::select ( $query );
+        if (! $type) {
+            return false;
+        }
+        return $type;
+    }
+
+    public function getStatRanks__600($id){
+        $query = new Query ( "SELECT" );
+        $query->where ( "type_id = ?", $id );
+
+        $type = TypeStatRanksBean::select ( $query );
+        if (! $type) {
+            return false;
+        }
+        return $type;
+    }
+}
 ?>
