@@ -3,6 +3,8 @@
 {% block pageJS %}
 {% endblock %}
 
+{% block bodyclass %}characterEdit{% endblock%}
+
 {% block content %}
 <div class='grid_16'>
     <h2>Edit: {{character.name}}</h2>
@@ -10,12 +12,10 @@
 </div>
 <div class='grid_16'>
     <ul>
-        <li>Stat Points: <span id='statPoints'>0</span></li>
         <li>Stat Points Available: <span id='statPointsAvailable'>{{statPointsAvailable}}</span></li>
-        <li>Skill Points: <span id='skillPoints'>0</span></li>
         <li>Skill Points Available: <span id='skillPointsAvailable'>{{skillPointsAvailable}}</span></li>
-        <li>Edges: <span id='edgePoints'>0</span></li>
-        <li>Edges Available: <span id='edgePointsAvailable'>{{edgePointsAvailable}}</span></li>
+        <li>Edges Available: <span id='edgesAvailable'>{{edgesAvailable}}</span></li>
+        <li>Powers Available: <span id='powersAvailable'>{{powersAvailable}}</span></li>
     </ul>
 </div>
 <div class='grid_8'>

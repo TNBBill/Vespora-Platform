@@ -26,7 +26,7 @@
         {% endblock %}
 
     </head>
-    <body>
+    <body class='{% block bodyclass %}{% endblock%}'>
 
     <div class="marker container_16">
         <div id='Menu' class='menu grid_16'>
