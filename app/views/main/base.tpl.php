@@ -36,6 +36,17 @@
     <body>
 
     <div class="marker container_16">
+        <div id='Menu' class='menu grid_16'>
+            {% block menu %}
+                <ul>
+                    <li><a href='/character'>Your Characters</a></li>
+                    <li><a href='/user/login'>Login</a></li>
+                    <li><a href='/user/logout'>Logout</a></li>
+                </ul>
+            {% endblock %}
+
+        </div>
+
         {% block flash %}
             {% if exists flashMessage %}
 
