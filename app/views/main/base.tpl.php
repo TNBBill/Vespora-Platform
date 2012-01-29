@@ -13,25 +13,18 @@
                 <script LANGUAGE="JavaScript" SRC="{{file}}"> </script>
             {% endfor %}
         {% endblock %}
-        {% block rest %}
-            {% if exists restKey %}
-                 <script LANGUAGE="JavaScript">var restkey='{{restKey}}'; </script>
 
-            {% endif %}
-        {% endblock %}
-        <script type="text/javascript">
+        <script LANGUAGE="JavaScript">
+             //{% for varItem in jsVar %}
 
-            $(document).ready(function(){
-                var output = $(window).width();
-                $('#docWidth').html('Document Width: '+ output + 'px');
+              var {{varItem.name}} = '{{varItem.value}}';
+             //{% endfor %}
 
-                $(window).resize(function(){
-                    output = $(window).width();
-                    $('#docWidth').html('Document Width: ' + output + 'px');
-                });
-
-            });
         </script>
+
+        {% block pageJS %}
+        {% endblock %}
+
     </head>
     <body>
 

@@ -30,6 +30,7 @@ if(isset($_GET['url']))
     $url= $_GET['url'];
 Log::info("url requested: $url");
 
+View::setVar('jsVar', array());
 
 
 //Step 4: Setup the router!

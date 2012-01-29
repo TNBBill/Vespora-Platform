@@ -163,7 +163,11 @@ class CharacterController extends BaseController
 
         View::setVar('statRanks', $statRanks);
         View::setVar('skillRanks', $skillRanks);
-        View::setVar('restKey', sessionHelper::$restID);
+        View::appendVar('jsVar', array('name'=>'restKey', 'value'=>sessionHelper::$restID));
+        View::appendVar('jsVar', array('name'=>'statPoints', 'value'=>0));
+        View::appendVar('jsVar', array('name'=>'statPointsAvailable', 'value'=>5));
+        View::appendVar('jsVar', array('name'=>'skillPoints', 'value'=>0));
+        View::appendVar('jsVar', array('name'=>'skillPointsAvailable', 'value'=>15));
         View::setVar('character',$charArray );
         viewHelper::$layout = 'character/' . $typeBean->name . '/edit';
 
