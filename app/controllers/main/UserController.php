@@ -30,14 +30,13 @@ class UserController extends BaseController {
 
     public function login(){
         $openid = new LightOpenID('platform.vespora.com/user/SAML');
-	 $openid->returnUrl = 'http://platform.vespora.com/user/SAML';
-	 //if(!$openid->mode){
-            $openid->required = array('contact/email');
-            $openid->optional = array('namePerson', 'namePerson/friendly');
-            $openid->identity = 'https://www.google.com/accounts/o8/id';
-            return $this->redirect($openid->authUrl());
-	 //}
-	 return $this->redirect('/user/SAML');
+	    $openid->returnUrl = 'http://platform.vespora.com/user/SAML';
+        if(isset($_GET['return']))
+            $openid->returnUrl = 'http://platform.vespora.com/user/SAML?return=' . $_GET['return'];
+        $openid->required = array('contact/email');
+        $openid->optional = array('namePerson', 'namePerson/friendly');
+        $openid->id = 'https://www.google.com/accounts/o8/id';
+        $this->redirect($openid->authUrl());
     }
 
     public function SAML(){
@@ -46,6 +45,7 @@ class UserController extends BaseController {
 	if(!$openid->mode != 'cancel'){
 		$userModel = UserModel::getInstance();
 		$userBean = $userModel->getUserByName($openid->data['openid_ext1_value_contact_email']);
+
 
 		if(!$userBean){
                 // User's not registered, and we need to register.
@@ -60,8 +60,9 @@ class UserController extends BaseController {
             }
 
 		sessionHelper::createSession($userBean->id);
-
-            $this->redirect('/user/profile');
+        if(isset($_GET['return']))
+            return $this->redirect($_GET['return']);
+        $this->redirect('/user/profile');
 	}
 	else{
 		return $this->redirect('/');

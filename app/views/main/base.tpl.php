@@ -6,6 +6,8 @@
                 <link rel="stylesheet" type="text/css" href="{{file}}" />
             {% endfor %}
         {% endblock %}
+        <script LANGUAGE="JavaScript" SRC="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"> </script>
+
         {% block js %}
             {% for file in js %}
                 <script LANGUAGE="JavaScript" SRC="{{file}}"> </script>

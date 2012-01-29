@@ -4,6 +4,7 @@
         {% block css %}
 
         {% endblock %}
+        <script LANGUAGE="JavaScript" SRC="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"> </script>
         {% block js %}
 
         {% endblock %}

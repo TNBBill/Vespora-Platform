@@ -98,7 +98,7 @@ class LightOpenID
     function __set($name, $value)
     {
         switch ($name) {
-        case 'identity':
+        case 'id':
             if (strlen($value = trim((String) $value))) {
                 if (preg_match('#^xri:/*#i', $value, $m)) {
                     $value = substr($value, strlen($m[0]));
@@ -109,7 +109,7 @@ class LightOpenID
                     $value .= '/';
                 }
             }
-            $this->$name = $this->claimed_id = $value;
+            $this->identity = $this->claimed_id = $value;
             break;
         case 'trustRoot':
         case 'realm':
