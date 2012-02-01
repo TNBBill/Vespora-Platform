@@ -7,7 +7,3 @@ cd /projects/Vespora-Platform
 git add .
 git commit
 git push
-cd /projects/Vespora-Platform/lib/Hydrogen
-git add .
-git commit
-git push
